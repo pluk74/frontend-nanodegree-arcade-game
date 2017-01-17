@@ -41,31 +41,49 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(move) {
     switch(move) {
         case "left":
-            console.log("left");
-            this.x = this.x - 100;
+            if (this.x <= 0) {
+                break;
+            }
+            else {
+                console.log("left");
+                this.x = this.x - 101;
+            }
             break;
         case "up":
-            console.log("up");
-            this.y = this.y - 80;
+            if (this.y <= -10) {
+                break;
+            }
+            else {
+                console.log("up");
+                this.y = this.y - 83;
+            }
             break;
-        case "right":
-            console.log("right");
-            this.x = this.x + 100;
+        case "right": 
+            if (this.x >= 400) {
+                break;
+            }
+            else {
+                console.log("right");
+                this.x = this.x + 101;
+            }
             break;
         case "down":
-            console.log("down");
-            this.y = this.y + 80;
+            if (this.y >= 405) {
+                break;
+            }
+            else {
+                console.log("down");
+                this.y = this.y + 83;
+            } 
             break;
     }
 };
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var enemy1 = new Enemy();
-var enemy2 =  new Enemy();
 
-var allEnemies = [enemy1, enemy2];
-var player = new Player(200, 280);
+var allEnemies = [new Enemy(), new Enemy()];
+var player = new Player(200, 405);
 
 
 
