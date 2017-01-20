@@ -1,11 +1,20 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
+
+    //this.multiplier = Math.floor((Math.random() * 5) + 1);
+
+    //var allEnemies = [new Enemy(-40,230), new Enemy(10,147), , new Enemy(50,64)];
+    //this.positions = [64, 147, 230];  
     this.sprite = 'images/enemy-bug.png';
+
+    this.x = -100;
+    this.y = y;//this.positions[Math.floor(Math.random() * 3)];
+    this.speed = Math.floor(Math.random() * 300) + 100;;
 };
 
 // Update the enemy's position, required method for game
@@ -14,7 +23,14 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x += this.speed * dt;
+    if (this.x >= 500) {
+        this.x = -100;
+        this.speed = Math.floor(Math.random() * 300) + 100;
+    }
+
 };
+
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -32,7 +48,31 @@ var Player = function(x, y) {
 
 Player.prototype.update = function() {
 
+    //console.log("before the foreach this.x: ", this.x);
+    var that = this;
+    allEnemies.forEach(function(element) {
+        //console.log(element);
+        var dx = element.x - that.x;
+        var dy = element.y - that.y;
+        var distance = Math.sqrt(dx * dx + dy * dy);
+        console.log("this.x: ", that.x);
+        if (distance < 65) {
+
+            that.x = 201;
+            that.y = 405;
+            alert("LOSE");
+        }
+    });
+    if (this.y < 5) {
+    this.y = 405;
+    alert("WIN");
+  }
 };
+
+Player.prototype.spin = function() {
+
+}
+
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -82,8 +122,10 @@ Player.prototype.handleInput = function(move) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var allEnemies = [new Enemy(), new Enemy()];
-var player = new Player(200, 405);
+
+var allEnemies = [new Enemy(64), new Enemy(147), new Enemy(230)];
+
+var player = new Player(201, 405);
 
 
 
