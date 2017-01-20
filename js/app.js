@@ -6,15 +6,11 @@ var Enemy = function(y) {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
 
-    //this.multiplier = Math.floor((Math.random() * 5) + 1);
-
-    //var allEnemies = [new Enemy(-40,230), new Enemy(10,147), , new Enemy(50,64)];
-    //this.positions = [64, 147, 230];  
     this.sprite = 'images/enemy-bug.png';
 
     this.x = -100;
-    this.y = y;//this.positions[Math.floor(Math.random() * 3)];
-    this.speed = Math.floor(Math.random() * 300) + 100;;
+    this.y = y; //this.positions[Math.floor(Math.random() * 3)];
+    this.speed = Math.floor(Math.random() * 300) + 100;
 };
 
 // Update the enemy's position, required method for game
@@ -48,14 +44,11 @@ var Player = function(x, y) {
 
 Player.prototype.update = function() {
 
-    //console.log("before the foreach this.x: ", this.x);
     var that = this;
     allEnemies.forEach(function(element) {
-        //console.log(element);
         var dx = element.x - that.x;
         var dy = element.y - that.y;
         var distance = Math.sqrt(dx * dx + dy * dy);
-        console.log("this.x: ", that.x);
         if (distance < 65) {
 
             that.x = 201;
@@ -64,57 +57,45 @@ Player.prototype.update = function() {
         }
     });
     if (this.y < 5) {
-    this.y = 405;
-    alert("WIN");
-  }
+        this.x = 201;
+        this.y = 405;
+        alert("WIN");
+    }
 };
-
-Player.prototype.spin = function() {
-
-}
-
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 Player.prototype.handleInput = function(move) {
-    switch(move) {
+    switch (move) {
         case "left":
             if (this.x <= 0) {
                 break;
-            }
-            else {
-                console.log("left");
+            } else {
                 this.x = this.x - 101;
             }
             break;
         case "up":
             if (this.y <= -10) {
                 break;
-            }
-            else {
-                console.log("up");
+            } else {
                 this.y = this.y - 83;
             }
             break;
-        case "right": 
+        case "right":
             if (this.x >= 400) {
                 break;
-            }
-            else {
-                console.log("right");
+            } else {
                 this.x = this.x + 101;
             }
             break;
         case "down":
             if (this.y >= 405) {
                 break;
-            }
-            else {
-                console.log("down");
+            } else {
                 this.y = this.y + 83;
-            } 
+            }
             break;
     }
 };
@@ -122,12 +103,9 @@ Player.prototype.handleInput = function(move) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-
 var allEnemies = [new Enemy(64), new Enemy(147), new Enemy(230)];
 
 var player = new Player(201, 405);
-
-
 
 
 // This listens for key presses and sends the keys to your
