@@ -7,7 +7,6 @@ var Enemy = function(y) {
     // a helper we've provided to easily load images
 
     this.sprite = 'images/enemy-bug.png';
-
     this.x = -100;
     this.y = y; //this.positions[Math.floor(Math.random() * 3)];
     this.speed = Math.floor(Math.random() * 300) + 100;
@@ -19,6 +18,16 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+
+    var dx = this.x - player.x;
+    var dy = this.y - player.y;
+    var distance = Math.sqrt(dx * dx + dy * dy);
+    if (distance < 65) {
+        player.x = 201;
+        player.y = 405;
+        alert("LOSE");
+    }
+
     this.x += this.speed * dt;
     if (this.x >= 500) {
         this.x = -100;
@@ -44,18 +53,6 @@ var Player = function(x, y) {
 
 Player.prototype.update = function() {
 
-    var that = this;
-    allEnemies.forEach(function(element) {
-        var dx = element.x - that.x;
-        var dy = element.y - that.y;
-        var distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 65) {
-
-            that.x = 201;
-            that.y = 405;
-            alert("LOSE");
-        }
-    });
     if (this.y < 5) {
         this.x = 201;
         this.y = 405;
